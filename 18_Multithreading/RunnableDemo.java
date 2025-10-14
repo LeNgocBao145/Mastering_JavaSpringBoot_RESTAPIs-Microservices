@@ -8,6 +8,12 @@ class RunnableDemo implements Runnable{
     public void run(){
         for(int i = 1; i <= 5; i++){
             System.out.println(Thread.currentThread().getName()); // Get the name of current thread
+
+            // Get the priority of current thread
+            // 1 (MIN_PRIORITY) to 10 (MAX_PRIORITY)
+            // Default priority is 5 (NORM_PRIORITY)
+            System.out.print(Thread.currentThread().getPriority() + " "); 
+
             System.out.println(i);
             try{
                 Thread.sleep(600, 500); // sleep(ms, ns) => sleep for ms (miliseconds) + ns (nanoseconds)
@@ -30,6 +36,8 @@ class RunnableDemo implements Runnable{
 
         Runnable r2 = new RunnableDemo();
         Thread t2 = new Thread(r2);
+
+        t2.setPriority(7); // Setting custom priority to thread
 
         t2.setName("Second Thread"); // Setting custom name to thread
 
