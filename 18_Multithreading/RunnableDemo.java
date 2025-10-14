@@ -6,7 +6,8 @@
 
 class RunnableDemo implements Runnable{
     public void run(){
-        for(int i = 1; i <= 10; i++){
+        for(int i = 1; i <= 5; i++){
+            System.out.println(Thread.currentThread().getName()); // Get the name of current thread
             System.out.println(i);
             try{
                 Thread.sleep(600, 500); // sleep(ms, ns) => sleep for ms (miliseconds) + ns (nanoseconds)
@@ -18,7 +19,7 @@ class RunnableDemo implements Runnable{
 
     public static void main(String[] args) throws InterruptedException {
         Runnable r1 = new RunnableDemo();
-        Thread t1 = new Thread(r1);
+        Thread t1 = new Thread(r1); // Default name of thread will be "Thread-0"
         t1.start();
 
         // Method join() is used to wait 
@@ -29,10 +30,16 @@ class RunnableDemo implements Runnable{
 
         Runnable r2 = new RunnableDemo();
         Thread t2 = new Thread(r2);
+
+        t2.setName("Second Thread"); // Setting custom name to thread
+
         t2.start();
 
         Runnable r3 = new RunnableDemo();
         Thread t3 = new Thread(r3);
+
+        t3.setName("Third Thread");
+
         t3.start();
 
         // Normal method
