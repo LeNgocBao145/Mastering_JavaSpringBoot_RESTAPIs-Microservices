@@ -11,9 +11,14 @@ public class MyController {
 	public String sayHello() {
 		return "<h1 style='color:red'>Hello World<h1/>";
 	}
-	
+
 	@GetMapping("/hi")
 	public String sayHi() {
-		return "<h1 style='color:blue'>Hi Java<h1/>";
+		return "<h1 style='color:blue'>Hi Spring Boot<h1/>";
+	}
+	
+	@GetMapping("/bye")
+	public String sayBye() {
+		return "<h1 style='color:orange'>Bye Bye SpringBoot...<h1/>";
 	}
 }
