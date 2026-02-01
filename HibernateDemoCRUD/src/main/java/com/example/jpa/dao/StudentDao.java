@@ -10,4 +10,8 @@ public interface StudentDao {
 	public Student findById(Integer id);
 	
 	public List<Student> findAll();
+	
+	public String update(Student stu);	
+
+	public void deleteById(Integer id); 
 }

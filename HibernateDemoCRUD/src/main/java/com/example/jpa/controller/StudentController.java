@@ -3,9 +3,11 @@ package com.example.jpa.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +35,16 @@ public class StudentController {
 	@GetMapping
 	public List<Student> getAllStudents() {
 		return studentDao.findAll();
+	}
+	
+	@PutMapping
+	public String updateStudent(@RequestBody Student stu) {
+		return studentDao.update(stu);
+	}
+	
+	@DeleteMapping("/{studentId}")
+	public String deleteStudent(@PathVariable Integer studentId) {
+		studentDao.deleteById(studentId);
+		return "Student with id " + studentId + " deleted successfully!";
 	}
 }

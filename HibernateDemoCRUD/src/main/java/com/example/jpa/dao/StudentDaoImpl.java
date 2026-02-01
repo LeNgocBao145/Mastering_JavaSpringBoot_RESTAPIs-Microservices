@@ -20,7 +20,7 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	@Transactional	
 	public void save(Student student) {
-		entityManager.persist(student);
+		entityManager.persist(student);		
 	}
 	
 	@Override
@@ -30,8 +30,22 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<Student> findAll() {
-		TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s", Student.class);
-		List<Student> students = query.getResultList();
+		TypedQuery<Student> query = entityManager.createQuery("FROM Student", Student.class);
+		List<Student> students = query.getResultList();		
 		return students;
+	}
+
+	@Override
+	@Transactional
+	public String update(Student stu) {	
+		entityManager.merge(stu);
+		return "Student updated successfully!";
+	}
+	
+	@Override
+	@Transactional
+	public void deleteById(Integer id) {
+		Student stu = entityManager.find(Student.class, id);
+		entityManager.remove(stu);				
 	}
 }
