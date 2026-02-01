@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.jpa.entity.Student;
 
@@ -13,16 +12,17 @@ import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
-public class StudentDaoImpl implements StudentDao {
+public class StudentDaoImpl implements StudentDao{
+    
 	@Autowired
 	private EntityManager entityManager;
-
+	
 	@Override
-	@Transactional	
+	@Transactional
 	public void save(Student student) {
 		entityManager.persist(student);
 	}
-	
+
 	@Override
 	public Student findById(Integer id) {
 		return entityManager.find(Student.class, id);
@@ -30,8 +30,22 @@ public class StudentDaoImpl implements StudentDao {
 
 	@Override
 	public List<Student> findAll() {
-		TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s", Student.class);
+		TypedQuery<Student> query = entityManager.createQuery("from Student",Student.class);
 		List<Student> students = query.getResultList();
 		return students;
 	}
+
+	@Override
+	@Transactional
+	public void update(Student student) {
+		entityManager.merge(student);
+	}
+
+	@Override
+	@Transactional
+	public void deletebyId(Integer id) {
+		Student student = entityManager.find(Student.class, id);
+		entityManager.remove(student);
+	}
+
 }
