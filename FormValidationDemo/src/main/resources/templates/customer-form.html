@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Form Validation</title>
+<link rel="stylesheet"  th:href="@{/css/demo.css}" >
+</head>
+<body>
+<h1>Customer Form</h1>
+
+<form th:action="@{/processForm}" th:object="${customer}" method="POST">
+First name: <input type="text"	th:field="*{firstName}" />
+<br><br>
+Last name(*): <input type="text"	th:field="*{lastName}" />
+<br><br>
+Free Passes(*): <input type="number" th:field="*{freePasses}"/>
+<br><br>
+Postal Code(*): <input type="number" th:field="*{postalCode}"/>
+
+<!-- Show error message (if present) -->
+<span th:if="${#fields.hasErrors('lastName')}"
+th:errors="*{lastName}"
+class="error" >
+</span>
+
+<br><br>
+
+<span th:if="${#fields.hasErrors('freePasses')}"
+th:errors="*{freePasses}"
+class="error" >
+</span>
+
+<br><br>
+<span th:if="${#fields.hasErrors('postalCode')}"
+th:errors="*{postalCode}"
+class="error" >
+</span>
+<br><br>
+<input type="submit" value="Submit" />
+</form>
+</body>
+</html>

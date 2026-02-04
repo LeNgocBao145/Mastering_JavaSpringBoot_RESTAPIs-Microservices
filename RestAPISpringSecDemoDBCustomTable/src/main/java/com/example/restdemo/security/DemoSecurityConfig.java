@@ -17,7 +17,9 @@ public class DemoSecurityConfig {
 	// getting users and roles from database (users and authorities)
     @Bean
     UserDetailsManager userDetailsManager(DataSource dataSource) {		
-    	JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+    	JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);    	    
+    	
+    	jdbcUserDetailsManager.setUsersByUsernameQuery("select login_name, password_hash, enabled from app_user where login_name = ?");
     	
     	String q = "SELECT\r\n"
     			+ "    u.login_name,\r\n"
@@ -26,9 +28,8 @@ public class DemoSecurityConfig {
     			+ "JOIN app_user_role ur ON u.user_id = ur.user_id\r\n"
     			+ "JOIN app_role r ON ur.role_id = r.role_id\r\n"
     			+ "WHERE u.login_name = ?";
-    	jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(q);
-    	
-    	jdbcUserDetailsManager.setUsersByUsernameQuery("select login_name, password_hash, enabled from app_user where login_name = ?");
+    	String q2 = "select login_name, authority from auth_authority where login_name = ?";
+    	jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(q2);
     	
     	return jdbcUserDetailsManager;
 	}
