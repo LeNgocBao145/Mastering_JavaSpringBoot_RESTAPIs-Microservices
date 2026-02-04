@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,4 +15,5 @@ public class Student {
 	
 	private String country;
 	private String favLanguage;
+	private List<String> favOS;
 }
