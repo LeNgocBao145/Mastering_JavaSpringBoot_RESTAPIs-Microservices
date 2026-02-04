@@ -9,15 +9,17 @@ import org.springframework.stereotype.Service;
 import com.example.mvccrud.entity.Employee;
 import com.example.mvccrud.repo.EmployeeRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
 	@Override
-	public List<Employee> findAll() {
-		
+	public List<Employee> findAll() {		
 		return employeeRepository.findAll();
 	}
 
